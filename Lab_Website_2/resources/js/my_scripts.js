@@ -43,7 +43,10 @@ var players = [{name:"John Doe", img: "../resources/img/player1.jpg", alt:"Image
 			purpose: This method will set the html body's background color to the 
 					 provided parameter.
 */
-
+function changeColor(color)
+{
+	document.body.style.backgroundColor = color;
+}
 
 /*
 	Football Season Stats Page:
@@ -61,6 +64,27 @@ var players = [{name:"John Doe", img: "../resources/img/player1.jpg", alt:"Image
 						
 						4. Update the second table to show the total number of wins/losses for the Buffs.
 */
+function loadStatsPage()
+{
+	var wins = 0;
+	var losses = 0;
+	var table = document.getElementById("stats_table");
+	for (var i = 2, row; row = table.rows[i]; i++)
+	{
+		if (row.cells[2].innerHTML > row.cells[3].innerHTML)
+		{
+			wins ++;
+			row.cells[4].innerHTML = "Cu Boulder";
+		}
+		else
+		{
+			losses ++;
+			row.cells[4].innerHTML = row.cells[1].innerHTML;
+		}
+	}
+	document.getElementById("wins").innerHTML = wins;
+	document.getElementById("losses").innerHTML = losses;
+}
 
 /*
 	Football Player Information Page
@@ -81,7 +105,24 @@ var players = [{name:"John Doe", img: "../resources/img/player1.jpg", alt:"Image
 						
 					After setting all of the anchor tags, update the innerHTML of the dropdown menu.
 					As a note, the id for the dropdown menu is player_selector.
-		
+*/
+function loadPlayersPage()
+{
+	for (var i = 0; i < players.length; i++)
+	{
+		var a = document.createElement("button");
+		a.href = "#";
+		a.textContent = players[i].name;
+		// a.addEventListener(switchPlayers(i))
+		a.onclick = function(){switchPlayers(Integer.valueOf(i.intValue()))};
+		// a.onclick = switchPlayers(i);
+
+		console.log("Working on player ", i);
+		document.getElementById("selectPlayerButton").appendChild(a);
+	}
+}
+
+/*
 		switchPlayers(playerNum) method:
 			parameters: 
 				playerNum - The index of the football player in the players array.
@@ -104,5 +145,13 @@ var players = [{name:"John Doe", img: "../resources/img/player1.jpg", alt:"Image
 					  avg_r_yards   - the average number of rushing yards for the player's Buff career
 					  avg_rec_yards - the average number of receiving yards for the player's Buff career
 */
-				
-
+function switchPlayers(playerNum)
+{
+	document.getElementById("p_year").innerHTML = players[playerNum].year;
+	document.getElementById("p_major").innerHTML = players[playerNum].major;
+	document.getElementById("g_played").innerHTML = players[playerNum].games_played;
+	document.getElementById("player_img").src = players[playerNum].img;
+	document.getElementById("p_yards").innerHTML = players[playerNum].pass_yards;
+	document.getElementById("r_yards").innerHTML = players[playerNum].rushing_yards;
+	document.getElementById("rec_yards").innerHTML = players[playerNum].receiving_yards;
+}
