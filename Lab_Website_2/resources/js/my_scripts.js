@@ -108,18 +108,18 @@ function loadStatsPage()
 */
 function loadPlayersPage()
 {
-	for (var i = 0; i < players.length; i++)
-	{
-		var a = document.createElement("button");
-		a.href = "#";
-		a.textContent = players[i].name;
-		// a.addEventListener(switchPlayers(i))
-		a.onclick = function(){switchPlayers(Integer.valueOf(i.intValue()))};
-		// a.onclick = switchPlayers(i);
+	players.forEach(function(player,index){
 
-		console.log("Working on player ", i);
-		document.getElementById("selectPlayerButton").appendChild(a);
-	}
+		var a = document.createElement("option");
+		a.href = "#";
+		a.textContent = player.name;
+		a.style.cursor="default";
+		a.addEventListener('click',function(){
+			switchPlayers(index);
+		}); 
+
+		document.getElementById("player_selector").appendChild(a);
+	});
 }
 
 /*
@@ -154,4 +154,7 @@ function switchPlayers(playerNum)
 	document.getElementById("p_yards").innerHTML = players[playerNum].pass_yards;
 	document.getElementById("r_yards").innerHTML = players[playerNum].rushing_yards;
 	document.getElementById("rec_yards").innerHTML = players[playerNum].receiving_yards;
+	document.getElementById("avg_p_yards").innerHTML = Math.round(players[playerNum].pass_yards/players[playerNum].games_played);
+	document.getElementById("avg_r_yards").innerHTML = Math.round(players[playerNum].rushing_yards/players[playerNum].games_played);
+	document.getElementById("avg_rec_yards").innerHTML = Math.round(players[playerNum].receiving_yards/players[playerNum].games_played);
 }
