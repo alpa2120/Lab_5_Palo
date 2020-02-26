@@ -33,6 +33,21 @@ var players = [{name:"John Doe", img: "../resources/img/player1.jpg", alt:"Image
 					 To reveal the html tag (toggle - 1), the visibility will be set to visible and
 					 the height will be set to auto.
 */
+function viewStudentStats(id, toggle)
+{
+	if(toggle)
+	{
+		document.getElementById(id).style.visibility = "visible";
+		document.getElementById(id).style.height = "auto";
+		console.log(id,"set to visible!")
+	}
+	else
+	{
+		document.getElementById(id).style.visibility = "hidden";
+		document.getElementById(id).style.height = "0";
+		console.log(id,"set to hidden!")
+	}
+}
 				
 /*
 	Home Page: 
